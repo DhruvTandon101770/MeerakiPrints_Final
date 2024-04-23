@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sign Up</title>
+    <link rel="stylesheet" href="signup.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h2>Sign Up</h2>
+      <form id="signupForm">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+        <button type="submit">Sign Up</button>
+      </form>
+      <p id="message"></p>
+    </div>
+    <script>
+      function validateForm() {
+        var username = document.getElementById("username").value;
+        var email = document.getElementById("email").value;
+        var password = document.getElementById("password").value;
+        var usernamePattern = /^[a-zA-Z0-9]+$/;
+        var emailPattern = /^\S+@\S+\.\S+$/;
+        var passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*]).{8,}$/;
+
+        if (username && password) {
+          alert("Welcome to Meeraki Prints");
+          window.location.href = "login";
+          return false;
+        }
+
+        if (!username.match(usernamePattern)) {
+          document.getElementById("message").innerHTML =
+            "Username should contain only letters and numbers.";
+          return false;
+        }
+        if (!email.match(emailPattern)) {
+          document.getElementById("message").innerHTML = "Invalid email address.";
+          return false;
+        }
+        if (!password.match(passwordPattern)) {
+          document.getElementById("message").innerHTML =
+            "Password should contain at least one digit, one lowercase letter, one uppercase letter, and one special character (!@#$%^&*), and be at least 8 characters long.";
+          return false;
+        }
+
+        alert("Registration successful!");
+        return true;
+      }
+
+      document.getElementById("signupForm").addEventListener("submit", function (event) {
+        event.preventDefault();
+        if (validateForm()) {
+          // Perform form submission or additional actions
+        }
+      });
+    </script>
+  </body>
+</html>

@@ -1,0 +1,86 @@
+* { 
+	box-sizing: border-box;
+}
+.shop-items {
+	background: #005449;
+	color: #ffffff;
+	margin-top: 1%;
+	border-radius: 20px;
+}
+html, body {
+	min-height: 100%;
+	background: #FFFDD0;
+	color: #000;
+}
+header {
+    background-color: #ffffff;
+    color: #ffffff;
+    padding: 4px;
+    text-align: right;
+}
+
+.PhoneCover {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+
+.Mugs {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+.Notebook {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+.Tumblr {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+.items-title {
+	width: 100%;
+	text-align: center;
+	font-size: 2.8em;
+}
+.item {
+	width: 400px;
+	margin: 0 5% 3% 5%;
+}
+.item img {
+	width: 400px;
+	height: 400px;
+	border-radius: 20px;
+	border: solid 2px #000000;
+}
+.price {
+	font-weight: 600;
+}
+.aesthetic-button {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    background-color: #007bff;
+    border: 2px solid #007bff;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+.aesthetic-button:hover {
+    background-color: #0056b3;
+    color: #fff;
+}
+
+.aesthetic-button:focus {
+    outline: none;
+}
+#itemfont{
+	font-family: "Snell Roundhand",cursive;
+	font-weight: 200;
+	font-size: 1.5rem;
+}
