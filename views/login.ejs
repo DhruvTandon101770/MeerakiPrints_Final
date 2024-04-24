@@ -27,29 +27,31 @@
     const form = document.getElementById('loginForm');
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
-
       const username = document.getElementById('username').value;
       const password = document.getElementById('password').value;
 
-      try {
-        const response = await fetch('/login', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ username, password }),
-        });
+      if (username == 'root' && password == 'root') {
+        try {
+          const response = await fetch('/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ username, password }),
+          });
 
-        const data = await response.json();
-
-        if (data.success) {
-          alert('Login Successful! Happy Shopping!');
-          window.location.href = 'services'; // Redirect to /views/services
-        } else {
-          document.getElementById('message').textContent = data.message;
+          const data = await response.json();
+          if (data.success) {
+            alert('Login Successful! Happy Shopping!');
+            window.location.href = 'services'; // Redirect to /views/services
+          } else {
+            document.getElementById('message').textContent = data.message;
+          }
+        } catch (error) {
+          console.error('Error:', error);
         }
-      } catch (error) {
-        console.error('Error:', error);
+      } else {
+        document.getElementById('message').textContent = 'Success Happy Shopping.';
       }
     });
   </script>
