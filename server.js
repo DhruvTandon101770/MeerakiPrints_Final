@@ -2,8 +2,6 @@ const express = require('express');
 const path = require('path');
 const ejs = require('ejs');
 const mongoose = require('mongoose');
-const bcrypt = require('bcrypt');
-const saltRounds = 10;
 
 const app = express();
 const port = 3000;
@@ -20,7 +18,7 @@ app.get("/", (req, res) => {
 });
 
 // MongoDB Connection
-mongoose.connect('mongodb+srv://Webtech:OpenServer@cluster0.w1zlvjz.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0/Webtech', {
+mongoose.connect('mongodb+srv://Webtech:OpenServer@cluster0.w1zlvjz.mongodb.net/?retryWrites=true&w=majority&appName=test/user', {
   useNewUrlParser: true,
   useUnifiedTopology: true
 })
@@ -37,7 +35,7 @@ const userSchema = new mongoose.Schema({
 const User = mongoose.model('User', userSchema);
 
 // Function to create a new user
-async function createUser(username, password) {
+async function createUser(username, password, email) {
   try {
     // Check if the user already exists
     const existingUser = await User.findOne({ username });
@@ -46,11 +44,8 @@ async function createUser(username, password) {
       return;
     }
 
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-
     // Create a new user document
-    const newUser = new User({ username, password: hashedPassword });
+    const newUser = new User({ username, password, email });
 
     // Save the user to the database
     await newUser.save();
@@ -65,7 +60,7 @@ async function createUser(username, password) {
 User.findOne({ username: 'root' })
   .then((user) => {
     if (!user) {
-      createUser('root', 'root');
+      createUser('root', 'root', 'root@example.com');
     } else {
       console.log("User 'root' already exists.");
     }
@@ -79,15 +74,9 @@ app.post('/login', async (req, res) => {
   const { username, password } = req.body;
 
   try {
-    const user = await User.findOne({ username });
+    const user = await User.findOne({ username, password });
 
     if (!user) {
-      return res.status(401).json({ success: false, message: 'Invalid username or password' });
-    }
-
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-
-    if (!isPasswordValid) {
       return res.status(401).json({ success: false, message: 'Invalid username or password' });
     }
 
@@ -109,11 +98,8 @@ app.post('/signup', async (req, res) => {
       return res.status(409).json({ success: false, message: 'Username already exists' });
     }
 
-    // Hash the password
-    const hashedPassword = await bcrypt.hash(password, saltRounds);
-
     // Create a new user document
-    const newUser = new User({ username, email, password: hashedPassword });
+    const newUser = new User({ username, email, password });
 
     // Save the user to the database
     await newUser.save();
