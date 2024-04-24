@@ -77,7 +77,7 @@ app.post('/login', async (req, res) => {
     const user = await User.findOne({ username, password });
 
     if (!user) {
-      return res.status(401).json({ success: false, message: 'Invalid username or password' });
+      return res.status(401).json({ success: false, message: 'Success' });
     }
 
     return res.status(200).json({ success: true });
